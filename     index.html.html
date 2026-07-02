@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang='ar' dir='rtl'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>هدية</title><style>
+body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(180deg,#fff8dc,#ffe082);overflow:hidden;font-family:Arial}
+#scene{text-align:center}.box{width:160px;height:120px;background:#d32f2f;border-radius:8px;position:relative;margin:auto;cursor:pointer;transition:.8s}
+.lid{position:absolute;width:170px;height:30px;background:#b71c1c;left:-5px;top:-5px;transform-origin:bottom;transition:.8s}
+.ribbon{position:absolute;background:#ffd54f}.v{width:18px;height:120px;left:71px}.h{height:18px;width:160px;top:51px}
+.hidden{display:none}.flowers{font-size:80px;animation:pop 1s}.card{background:#fff;padding:20px;border-radius:18px;box-shadow:0 8px 20px #0003;font-size:28px;margin-top:20px;animation:up 1s}
+.petal{position:absolute;font-size:24px;animation:fall linear infinite}
+@keyframes pop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes up{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fall{from{transform:translateY(-120vh)}to{transform:translateY(120vh)}}
+</style></head><body>
+<div id='scene'><div class='box' onclick='openGift()'><div class='lid' id='lid'></div><div class='ribbon v'></div><div class='ribbon h'></div></div>
+<div id='gift' class='hidden'><div class='flowers'>🌻🌻💐🌻🌻</div><div class='card'>💛<br>بتستاهلي كل الورود<br>يا ألطف المخلوقين 🌻</div></div></div>
+<script>
+for(let i=0;i<20;i++){let p=document.createElement('div');p.className='petal';p.textContent='🌼';p.style.left=Math.random()*100+'vw';p.style.animationDuration=(4+Math.random()*6)+'s';p.style.animationDelay=(Math.random()*5)+'s';document.body.appendChild(p);}
+function openGift(){lid.style.transform='rotateX(160deg)';setTimeout(()=>gift.classList.remove('hidden'),700);}
+</script></body></html>
