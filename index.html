@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هدية خاصة لكِ</title>
+    <title>هدية خاصة لبيسان</title>
     <style>
         :root {
             --gold: #d4af37;
             --dark-gold: #aa8010;
-            --bg-color: #0b0907;
-            --box-color: #f7f3e9;
-            --petal-color: #ffcc00;
+            --bg-color: #0c0a07;
+            --box-color: #f5f0e6;
+            --box-inner: #ebdcb9;
         }
 
         * {
@@ -22,14 +22,14 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at center, #1a140d 0%, #050403 100%);
+            background-image: radial-gradient(circle at center, #1f170f 0%, #050403 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
             color: #fff;
-            perspective: 1000px; /* لتمكين البُعد الثالث في الصفحة */
+            perspective: 1200px; /* منظور عميق ثلاثي الأبعاد للمشهد بالكامل */
         }
 
         .phone-container {
@@ -50,125 +50,118 @@
             border: 1px solid var(--gold);
             padding: 8px 35px;
             border-radius: 4px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-            background: rgba(11, 9, 7, 0.8);
-            z-index: 10;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            background: rgba(12, 10, 7, 0.85);
+            z-index: 100;
             letter-spacing: 1px;
         }
 
+        /* المسرح ثلاثي الأبعاد */
         .scene {
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 550px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 5;
             transform-style: preserve-3d;
+            transform: rotateX(10deg); /* إمالة المسرح قليلاً لرؤية مجسم الصندوق */
         }
 
-        /* الصندوق الفخم */
-        .gift-box {
+        /* ================= صندق الهدايا ثلاثي الأبعاد الحقيقي ================= */
+        .gift-box-3d {
             position: relative;
-            width: 250px;
-            height: 220px;
-            background-color: var(--box-color);
-            border-radius: 8px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.85), inset 0 0 25px rgba(0,0,0,0.15);
-            border: 2px solid #e0dacb;
-            z-index: 4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: translateY(40px);
-            transition: transform 0.8s ease;
+            width: 200px;
+            height: 180px;
             transform-style: preserve-3d;
+            transform: translateY(60px) rotateY(-15deg);
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 10;
         }
 
-        .gift-box::before {
-            content: '';
+        /* الجوانب الستة للصندوق ثلاثي الأبعاد */
+        .box-face {
             position: absolute;
-            width: 36px;
-            height: 100%;
-            background: linear-gradient(90deg, var(--dark-gold), var(--gold), var(--dark-gold));
-            top: 0;
-            left: calc(50% - 18px);
-            z-index: 2;
-        }
-
-        .gift-lid {
-            position: absolute;
-            top: -18px;
-            left: -6px;
-            width: 262px;
-            height: 45px;
             background-color: var(--box-color);
-            border: 2px solid #e0dacb;
-            border-radius: 4px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-            z-index: 5;
-            transition: all 1.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1.5px solid #ebdcb9;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
         }
 
-        .gift-lid::before {
-            content: '';
-            position: absolute;
-            width: 36px;
-            height: 100%;
-            background: linear-gradient(90deg, var(--dark-gold), var(--gold), var(--dark-gold));
-            left: calc(50% - 18px);
-        }
-
-        .ribbon-bow {
-            position: absolute;
-            top: -30px;
-            left: calc(50% - 30px);
-            width: 60px;
-            height: 30px;
-            background: var(--gold);
-            border-radius: 60px 60px 0 0;
-        }
-
-        .box-plate {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #fffcf6, #ebdcb9);
-            border: 2px solid var(--gold);
-            padding: 6px 25px;
-            border-radius: 4px;
-            color: #4a3611;
-            font-weight: bold;
-            text-align: center;
-            z-index: 3;
-            font-size: 1rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: opacity 0.4s ease;
-        }
+        .box-face.front  { width: 200px; height: 180px; transform: translateZ(100px); }
+        .box-face.back   { width: 200px; height: 180px; transform: rotateY(180deg) translateZ(100px); background: #eae3d2; }
+        .box-face.left   { width: 200px; height: 180px; transform: rotateY(-90deg) translateZ(100px); background: #e3dac6; }
+        .box-face.right  { width: 200px; height: 180px; transform: rotateY(90deg) translateZ(100px); background: #eee7d7; }
+        .box-face.bottom { width: 200px; height: 200px; transform: rotateX(-90deg) translateZ(90px); background: #d7cdb4; box-shadow: 0 30px 50px rgba(0,0,0,0.7); }
         
-        .box-plate span {
-            display: block;
-            font-size: 1.3rem;
-            color: var(--dark-gold);
-            margin-top: 2px;
+        /* أشرطة الزينة الذهبية حول مجسم الصندوق */
+        .ribbon-v {
+            position: absolute;
+            top: 0; left: calc(50% - 15px); width: 30px; height: 100%;
+            background: linear-gradient(90deg, var(--dark-gold), var(--gold), var(--dark-gold));
         }
 
-        .gift-box.open .gift-lid {
-            transform: translateY(-180px) rotateX(45deg) rotateZ(-20deg) scale(0.5);
+        /* غطاء الصندوق ثلاثي الأبعاد المنفصل */
+        .lid-3d {
+            position: absolute;
+            width: 212px;
+            height: 35px;
+            top: -20px;
+            left: -6px;
+            transform-style: preserve-3d;
+            transform-origin: center back;
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease;
+            z-index: 15;
+        }
+
+        .lid-face {
+            position: absolute;
+            background-color: var(--box-color);
+            border: 1px solid #ebdcb9;
+        }
+        .lid-face.top    { width: 212px; height: 212px; transform: rotateX(90deg) translateZ(106px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .lid-face.front  { width: 212px; height: 35px; transform: translateZ(106px); }
+        .lid-face.back   { width: 212px; height: 35px; transform: rotateY(180deg) translateZ(106px); }
+        .lid-face.left   { width: 212px; height: 35px; transform: rotateY(-90deg) translateZ(106px); }
+        .lid-face.right  { width: 212px; height: 35px; transform: rotateY(90deg) translateZ(106px); }
+
+        .lid-ribbon {
+            position: absolute;
+            top: 0; left: calc(50% - 15px); width: 30px; height: 100%;
+            background: var(--gold);
+        }
+
+        /* فتح الصندوق ثلاثي الأبعاد بشكل سينمائي */
+        .gift-box-3d.open {
+            transform: translateY(120px) rotateX(15deg) rotateY(20deg);
+        }
+        .gift-box-3d.open .lid-3d {
+            transform: translateY(-150px) rotateX(-120deg) rotateZ(30deg) scale(0.8);
             opacity: 0;
         }
 
-        /* الكارد الفخم المنبثق أولاً */
+        /* لوحة الاسم الفخمة على واجهة الصندوق */
+        .box-label {
+            position: absolute;
+            bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(135deg, #ffffff, #f7f1e1);
+            border: 1.5px solid var(--gold);
+            padding: 5px 20px; border-radius: 4px;
+            color: #4a3611; font-weight: bold; text-align: center; font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .box-label span { display: block; font-size: 1.1rem; color: var(--dark-gold); }
+
+        /* ================= الكارد الفخم والانبثاق أولاً ================= */
         .card {
             position: absolute;
             width: 220px;
             height: 290px;
-            background: linear-gradient(135deg, #fffdf9 0%, #f3ede0 100%);
+            background: linear-gradient(135deg, #fffdfb 0%, #f6f0e2 100%);
             border: 3px double var(--gold);
-            border-radius: 8px;
+            border-radius: 12px;
             color: #3a2e16;
             padding: 25px 20px;
             text-align: center;
@@ -176,120 +169,108 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
-            z-index: 6;
-            transform: translateY(40px) scale(0.3) rotateY(90deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            z-index: 40; /* التأكد من أن الكارد في الأعلى تماماً ولا تخترقه أي عناصر */
+            transform: translateY(50px) scale(0.2) rotateX(-90deg);
             opacity: 0;
             transition: all 1.6s cubic-bezier(0.19, 1, 0.22, 1);
             pointer-events: none;
             transform-style: preserve-3d;
         }
 
-        /* الانبثاق ثلاثي الأبعاد المذهل */
-        .gift-box.open .card {
-            transform: translateY(-110px) scale(1.1) rotateY(0deg);
+        /* انطلاق الكارد إلى الصدارة */
+        .gift-box-3d.open .card {
+            transform: translateY(-130px) scale(1.15) rotateX(0deg);
             opacity: 1;
             pointer-events: auto;
         }
 
-        /* تنحي الكارد جانباً بزاوية مائلة */
+        /* حركة تنحي الكارد الجانبية الذكية لمنع التداخل مع الورد */
         .card.shift-aside {
-            transform: translateY(-90px) translateX(-75px) scale(0.8) rotateY(-15px) rotateZ(-5deg) !important;
-            z-index: 5;
+            transform: translateY(-120px) translateX(-85px) scale(0.85) rotateY(-20deg) rotateZ(-8deg) !important;
+            box-shadow: -10px 20px 30px rgba(0,0,0,0.5);
         }
 
-        .card h2 {
-            font-size: 2rem;
-            color: var(--dark-gold);
-            font-weight: bold;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
-        }
+        .card h2 { font-size: 2.1rem; color: var(--dark-gold); font-weight: bold; }
+        .card p { font-size: 1.1rem; line-height: 1.7; font-weight: 600; color: #4a3f2c; }
+        .card-heart { color: var(--gold); font-size: 1.5rem; }
 
-        .card p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            font-weight: 600;
-            color: #4a3f2c;
-        }
-
-        .card-heart {
-            color: var(--gold);
-            font-size: 1.5rem;
-        }
-
-        /* --- مجسم زهرة عباد الشمس ثلاثية الأبعاد ثلاثي الفخامة (3D Pure CSS Flower) --- */
-        .sunflower-3d {
+        /* ================= باقة الورد ثلاثية الأبعاد الفخمة المكونة من عدة وردات ================= */
+        .bouquet-3d-container {
             position: absolute;
-            bottom: 40px;
-            width: 160px;
-            height: 160px;
-            z-index: 3;
+            bottom: 90px;
+            width: 180px;
+            height: 180px;
+            z-index: 30; /* تكون بالخلف والوسط تماماً وتصعد بحرية */
             opacity: 0;
-            transform: scale(0.1) translateY(100px) rotateX(60deg);
+            transform: scale(0.1) translateY(150px) rotateY(0deg);
             transform-style: preserve-3d;
             transition: all 2.2s cubic-bezier(0.075, 0.82, 0.165, 1);
             pointer-events: none;
         }
 
-        /* انطلاق وجلب الوردة ثلاثية الأبعاد لأعلى المعرض */
-        .sunflower-3d.bloom {
+        /* انبثاق الباقة المجسمة الكاملة للأعلى ودورانها الفخم */
+        .bouquet-3d-container.bloom {
             opacity: 1;
-            transform: scale(1.3) translateY(-130px) translateX(65px) rotateX(25deg) rotateY(-15deg);
-            z-index: 7;
-            animation: slowFloat 4s infinite ease-in-out alternate;
+            transform: scale(1.3) translateY(-140px) translateX(65px) rotateY(15deg);
+            animation: bouquetFloat 5s infinite ease-in-out alternate;
         }
 
-        @keyframes slowFloat {
-            0% { transform: scale(1.3) translateY(-130px) translateX(65px) rotateX(25deg) rotateY(-15deg); }
-            100% { transform: scale(1.35) translateY(-140px) translateX(68px) rotateX(30deg) rotateY(-5deg); }
+        @keyframes bouquetFloat {
+            0% { transform: scale(1.3) translateY(-140px) translateX(65px) rotateY(10deg) rotateX(5deg); }
+            100% { transform: scale(1.35) translateY(-150px) translateX(70px) rotateY(25deg) rotateX(-5deg); }
         }
 
-        /* قلب الوردة البني الداكن المخملي */
+        /* تصميم هيكل الزهرة الفردية ثلاثية الأبعاد */
+        .single-flower-3d {
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+
+        /* تنسيق وتوزيع الوردات داخل الباقة (أماكن مختلفة وعمق ثلاثي أبعاد) */
+        .fl-1 { top: 30px; left: 30px; transform: scale(0.9) translateZ(10px); }
+        .fl-2 { top: 0px; left: 65px; transform: scale(1) rotateX(10deg) translateZ(30px); }
+        .fl-3 { top: 40px; left: 95px; transform: scale(0.85) rotateY(-15deg) translateZ(15px); }
+        .fl-4 { top: 70px; left: 55px; transform: scale(0.95) rotateX(-10deg) translateZ(25px); }
+
         .flower-center {
             position: absolute;
-            top: 40px;
-            left: 40px;
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, #2b1a08 0%, #140c04 100%);
+            top: 25px; left: 25px; width: 40px; height: 40px;
+            background: radial-gradient(circle, #2d1b07 0%, #120b03 100%);
             border-radius: 50%;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 0 10px rgba(0,0,0,0.8);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 0 8px rgba(0,0,0,0.8);
             z-index: 10;
-            transform: translateZ(20px); /* دفع القلب للأمام ليعطي عمق عميق */
+            transform: translateZ(10px);
         }
 
-        /* حاوية البتلات المتداخلة */
-        .petals-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        .petals-group {
+            position: relative;
+            width: 90px;
+            height: 90px;
             transform-style: preserve-3d;
         }
 
         .petal {
             position: absolute;
-            top: 10px;
-            left: 65px;
-            width: 30px;
-            height: 70px;
-            background: linear-gradient(to bottom, #ffdb1a, #e69d00);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            top: 5px; left: 37px; width: 16px; height: 40px;
+            background: linear-gradient(to bottom, #ffe033, #e69500);
+            border-radius: 50% 50% 40% 40%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transform-origin: center bottom;
         }
 
-        /* زر الإشارة اللطيفة التفاعلية النابضة */
+        /* زر الإشارة اللطيفة النبضي */
         .hint-touch-btn {
             position: absolute;
             bottom: -25px;
-            background: #fff;
+            background: #ffffff;
             color: var(--dark-gold);
             border: 1px solid var(--gold);
-            padding: 7px 20px;
+            padding: 7px 22px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
             cursor: pointer;
             opacity: 0;
             transform: scale(0);
@@ -297,10 +278,7 @@
             animation: pulseHint 1.8s infinite ease-in-out;
         }
 
-        .gift-box.open .hint-touch-btn {
-            opacity: 1;
-            transform: scale(1);
-        }
+        .gift-box-3d.open .hint-touch-btn { opacity: 1; transform: scale(1); }
 
         @keyframes pulseHint {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
@@ -311,40 +289,40 @@
         .action-btn {
             background: linear-gradient(135deg, var(--gold), var(--dark-gold));
             border: none;
-            padding: 15px 50px;
+            padding: 15px 55px;
             border-radius: 30px;
             color: #fff;
             font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
             transition: all 0.4s ease;
-            z-index: 10;
+            z-index: 110;
         }
 
-        /* الجزيئات البراقة والقلوب اللامعة */
+        /* بريق وسحر ذهبي متطاير */
         .particle {
             position: absolute;
             color: var(--gold);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             pointer-events: none;
             opacity: 0;
-            z-index: 8;
-            text-shadow: 0 0 12px rgba(212, 175, 55, 0.9);
+            z-index: 90;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
             animation: floatUp 2.5s ease-out forwards;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.4) rotateZ(0deg); opacity: 0; }
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
             15% { opacity: 1; }
-            100% { transform: translateY(-260px) scale(1.5) rotateZ(360deg); opacity: 0; }
+            100% { transform: translateY(-280px) scale(1.4) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- نغمة أمواج بحر وبيانو هادئة جداً، انسيابية وناعمة للغاية تفوق الوصف جديّة ورومانسية -->
-    <audio id="bgMusic" loop>
+    <!-- صوت نقي وطبيعي لأمواج البحر الهادئة والناعمة جداً فقط بدون أي موسيقى مضافة -->
+    <audio id="seaAudio" loop>
         <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-200.wav" type="audio/wav">
     </audio>
 
@@ -352,31 +330,61 @@
         <div class="header-title">هدية خاصة لكِ</div>
 
         <div class="scene">
-            <div class="gift-box" id="giftBox">
-                <div class="gift-lid">
-                    <div class="ribbon-bow"></div>
-                </div>
-                
-                <div class="box-plate" id="boxPlate">
-                    هدية لـ
-                    <span>بيسان</span>
+            <!-- هيكل صندوق الهدايا ثلاثي الأبعاد بالكامل -->
+            <div class="gift-box-3d" id="giftBox">
+                <!-- غطاء الصندوق ثلاثي الأبعاد -->
+                <div class="lid-3d">
+                    <div class="lid-face top"><div class="lid-ribbon"></div></div>
+                    <div class="lid-face front"><div class="lid-ribbon"></div></div>
+                    <div class="lid-face back"><div class="lid-ribbon"></div></div>
+                    <div class="lid-face left"></div>
+                    <div class="lid-face right"></div>
                 </div>
 
-                <!-- الكارد الذي ينبثق أولاً بتأثير ثلاثي الأبعاد -->
-                <div class="card" id="mainCard" onclick="bloom3DFlower()">
+                <!-- أوجة الصندوق المكعبة المحيطة -->
+                <div class="box-face front">
+                    <div class="ribbon-v"></div>
+                    <div class="box-label" id="boxLabel">هدية لـ<span>بيسان</span></div>
+                </div>
+                <div class="box-face back"><div class="ribbon-v"></div></div>
+                <div class="box-face left"></div>
+                <div class="box-face right"></div>
+                <div class="box-face bottom"></div>
+
+                <!-- كارد التهنئة المنبثق في الصدارة أولاً -->
+                <div class="card" id="mainCard" onclick="bloom3DBouquet()">
                     <div class="card-heart">♥</div>
                     <h2>بيسان</h2>
                     <p>بتستاهلي كل الورد<br>يا ألطف المخلوقين</p>
                     <div class="card-heart">♥</div>
                     
-                    <div class="hint-touch-btn" id="hintBtn">اضغطي لتأمل المفاجأة 🌊</div>
+                    <div class="hint-touch-btn" id="hintBtn">اضغطي لتأمل باقة الورد 🌊</div>
                 </div>
 
-                <!-- زهرة عباد الشمس المجسمة ثلاثية الأبعاد المبتكرة بالكامل بالداخل -->
-                <div class="sunflower-3d" id="flower3D">
-                    <div class="flower-center"></div>
-                    <div class="petals-container" id="petalsList"></div>
+                <!-- باقة الورد ثلاثية الأبعاد الفخمة (تحتوي على 4 وردات مجسمة متناسقة) -->
+                <div class="bouquet-3d-container" id="bouquet3D">
+                    <!-- الوردة الأولى -->
+                    <div class="single-flower-3d fl-1">
+                        <div class="flower-center"></div>
+                        <div class="petals-group"></div>
+                    </div>
+                    <!-- الوردة الثانية (المركزية الكبرى) -->
+                    <div class="single-flower-3d fl-2">
+                        <div class="flower-center"></div>
+                        <div class="petals-group"></div>
+                    </div>
+                    <!-- الوردة الثالثة -->
+                    <div class="single-flower-3d fl-3">
+                        <div class="flower-center"></div>
+                        <div class="petals-group"></div>
+                    </div>
+                    <!-- الوردة الرابعة -->
+                    <div class="single-flower-3d fl-4">
+                        <div class="flower-center"></div>
+                        <div class="petals-group"></div>
+                    </div>
                 </div>
+
             </div>
         </div>
 
@@ -384,62 +392,67 @@
     </div>
 
     <script>
-        const music = document.getElementById('bgMusic');
-        // نغمة أمواج البحر والبيانو الجادة والناعمة للغاية
-        music.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"; 
+        const seaAudio = document.getElementById('seaAudio');
+        // رابط مباشر لصوت هدير موج البحر النقي والمريح للغاية
+        seaAudio.src = "https://www.soundjay.com/nature/sounds/ocean-wave-1.mp3";
 
-        // توليد بتلات الوردة بشكل دائري ثلاثي الأبعاد متداخل عند تحميل الصفحة
-        const petalsList = document.getElementById('petalsList');
-        const totalPetals = 24; // عدد البتلات الكثيف لتعطي مجسم حقيقي فخم
-        for (let i = 0; i < totalPetals; i++) {
-            const angle = (360 / totalPetals) * i;
-            const petal = document.createElement('div');
-            petal.classList.add('petal');
-            
-            // ترتيب البتلات في فضاء الـ 3D وتناوب إمالتها للخارج قليلاً لتبدو طبيعية ومتفتحة
-            const randomTilt = 20 + (i % 2 * 8); // تداخل البتلات في طبقتين
-            const translateZ = i % 2 === 0 ? 5 : 12; 
-            
-            petal.style.transform = `rotateZ(${angle}deg) rotateX(${randomTilt}deg) translateZ(${translateZ}px)`;
-            petalsList.appendChild(petal);
-        }
+        // بناء بتلات الوردات الأربع مجسمة وتوزيعها دائرياً عند تحميل الصفحة
+        const petalGroups = document.querySelectorAll('.petals-group');
+        const petalsPerFlower = 18;
+
+        petalGroups.forEach(group => {
+            for (let i = 0; i < petalsPerFlower; i++) {
+                const angle = (360 / petalsPerFlower) * i;
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // إمالة البتلات في فضاء الـ 3D لتعطي شكل زهرة متفتحة حقيقية ولها عمق هندسي
+                const tilt = 22 + (i % 2 * 6);
+                const zOffset = i % 2 === 0 ? 3 : 7;
+                
+                petal.style.transform = `rotateZ(${angle}deg) rotateX(${tilt}deg) translateZ(${zOffset}px)`;
+                group.appendChild(petal);
+            }
+        });
 
         function openGift() {
             const giftBox = document.getElementById('giftBox');
             const actionBtn = document.getElementById('actionBtn');
-            const boxPlate = document.getElementById('boxPlate');
+            const boxLabel = document.getElementById('boxLabel');
 
-            if (music) {
-                music.volume = 0.2; // خافتة وناعمة جداً لتكون خلفية راقية كأصوات الطبيعة والبيانو
-                music.play().catch(err => console.log("تطلب تفاعل مستخدم مسبق"));
+            // تشغيل صوت أمواج البحر بنعومة فائقة في الخلفية
+            if (seaAudio) {
+                seaAudio.volume = 0.4;
+                seaAudio.play().catch(() => console.log("تفاعل المتصفح مطلوب للملفات الصوتية"));
             }
 
+            // انطلاق أنيميشن فتح غطاء الصندوق الـ 3D وانبثاق الكارد الفخم فوراً
             giftBox.classList.add('open');
-            boxPlate.style.opacity = '0';
+            boxLabel.style.opacity = '0';
 
-            createGoldMagic();
+            createMagicSparkles();
 
             actionBtn.style.opacity = '0';
             setTimeout(() => { actionBtn.style.display = 'none'; }, 500);
         }
 
-        // تفاعل تفتح وصعود المجسم ثلاثي الأبعاد الفخم من عمق الصندوق
-        function bloom3DFlower() {
+        // الخطوة الثانية: تنحي الكارد وانبثاق باقة الورد المجسمة الفخمة بالكامل من عمق الصندوق
+        function bloom3DBouquet() {
             const mainCard = document.getElementById('mainCard');
-            const flower3D = document.getElementById('flower3D');
+            const bouquet3D = document.getElementById('bouquet3D');
             const hintBtn = document.getElementById('hintBtn');
 
             hintBtn.style.display = 'none';
             mainCard.classList.add('shift-aside');
 
+            // صعود باقة الورد المكونة من عدة زهرات من قلب الصندوق
             setTimeout(() => {
-                flower3D.classList.add('bloom');
-                // إطلاق بريق إضافي فخم أثناء الصعود
-                createGoldMagic();
-            }, 300);
+                bouquet3D.classList.add('bloom');
+                createMagicSparkles();
+            }, 400);
         }
 
-        function createGoldMagic() {
+        function createMagicSparkles() {
             const scene = document.querySelector('.scene');
             for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
@@ -447,9 +460,9 @@
                     particle.classList.add('particle');
                     particle.innerHTML = i % 2 === 0 ? '♥' : '✨';
                     
-                    particle.style.left = `calc(50% - 10px + ${Math.random() * 120 - 60}px)`;
-                    particle.style.top = '50%';
-                    particle.style.animationDelay = `${Math.random() * 0.3}s`;
+                    particle.style.left = `calc(50% - 10px + ${Math.random() * 140 - 70}px)`;
+                    particle.style.top = '45%';
+                    particle.style.animationDelay = `${Math.random() * 0.2}s`;
                     
                     scene.appendChild(particle);
                     setTimeout(() => { particle.remove(); }, 2500);
