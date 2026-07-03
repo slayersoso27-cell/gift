@@ -61,7 +61,7 @@
             justify-content: center;
             align-items: center;
             transform-style: preserve-3d;
-            transform: rotateX(12deg) rotateY(-5deg);
+            transform: rotateX(14deg) rotateY(-5deg); /* تحسين ميل المشهد العام */
             z-index: 10;
         }
 
@@ -159,7 +159,7 @@
         }
 
         .card.shift-aside {
-            transform: translateZ(50px) translateY(-130px) translateX(-145px) scale(0.9) rotateY(-22deg) rotateZ(-4deg) !important;
+            transform: translateZ(40px) translateY(-130px) translateX(-145px) scale(0.85) rotateY(-25deg) rotateZ(-4deg) !important;
             box-shadow: -15px 25px 45px rgba(0,0,0,0.45);
         }
 
@@ -167,13 +167,13 @@
         .card p { font-size: 1.05rem; line-height: 1.6; font-weight: 600; color: #4a3f2c; }
         .card-heart { color: var(--gold); font-size: 1.3rem; }
 
-        /* ================= تعديل أبعاد حاوية الباقة المخصصة لمعالجة مشكلة الطول ================= */
+        /* ================= حاوية الباقة مع توجيه المنظور من الأعلى ================= */
         .bouquet-3d-container {
             position: absolute;
-            top: 40px; 
+            top: 50px; 
             left: -20px;
-            width: 250px; /* زيادة العرض لتبدو ممتلئة البنية */
-            height: 210px; /* تقليل الارتفاع الطولي الإجمالي لمنع التمدد الرأسي المشوه */
+            width: 250px; 
+            height: 210px; 
             z-index: 45;
             opacity: 0;
             transform: translateZ(0px) translateY(0px) scale(0.1);
@@ -182,19 +182,19 @@
             pointer-events: none;
         }
 
-        /* ضبط تموضع الباقة الطافية بعد تفتحها للجهة اليمنى */
+        /* تحنيط الباقة لتميل للأمام (rotateX(35deg)) لتعطي منظوراً علوياً مكشوفاً */
         .bouquet-3d-container.bloom {
             opacity: 1;
-            transform: translateZ(90px) translateY(-130px) translateX(35px) scale(1.25);
+            transform: translateZ(90px) translateY(-120px) translateX(45px) scale(1.25) rotateX(35deg);
             animation: bouquetFloat 5s infinite ease-in-out alternate;
         }
 
         @keyframes bouquetFloat {
-            0% { transform: translateZ(90px) translateY(-130px) translateX(35px) scale(1.25) rotateY(0deg); }
-            100% { transform: translateZ(90px) translateY(-140px) translateX(40px) scale(1.28) rotateY(10deg) rotateX(3deg); }
+            0% { transform: translateZ(90px) translateY(-120px) translateX(45px) scale(1.25) rotateX(35deg) rotateY(0deg); }
+            100% { transform: translateZ(90px) translateY(-130px) translateX(48px) scale(1.28) rotateX(38deg) rotateY(6deg); }
         }
 
-        /* ورق التغليف الفخم المتناسق */
+        /* ورق التغليف الفخم */
         .wrapping-paper {
             position: absolute;
             width: 100%;
@@ -203,7 +203,6 @@
             z-index: 1;
         }
 
-        /* تعديل نسب مخروط الورق ليكون عريضاً وقصيراً طبيعياً كالصورة الأصلية */
         .paper-cone {
             position: absolute;
             bottom: 0px; 
@@ -219,7 +218,7 @@
         .paper-cone.left-wing { transform: rotateY(-25deg) translateZ(8px) rotateZ(-6deg); opacity: 0.95; }
         .paper-cone.right-wing { transform: rotateY(25deg) translateZ(8px) rotateZ(6deg); opacity: 0.95; }
 
-        /* شريطة الساتان السفلية وعقدة الفراشة بالباقة */
+        /* شريطة الساتان */
         .golden-ribbon-tie {
             position: absolute;
             bottom: 5px; left: 50%;
@@ -260,7 +259,7 @@
             box-shadow: 0 0 4px #fff, 8px 12px 0 #fff, -10px 5px 0 #fffdf0;
         }
 
-        /* شبكة زهرات عباد الشمس الخمس المعاد موازنة أبعادها وتوزيعها هندسياً */
+        /* توزيع الزهور الدائري المستوي والمائل ليناسب الرؤية العلوية كاملاً */
         .flowers-grid {
             position: absolute;
             width: 100%; height: 100%;
@@ -270,14 +269,14 @@
 
         .single-flower-3d { position: absolute; transform-style: preserve-3d; }
         
-        /* تعديل الإحداثيات والمسافات لمنع التداخل والامتداد العمودي العشوائي */
-        .fl-center { top: 40px; left: 80px; transform: scale(1.0) translateZ(35px); } 
-        .fl-top    { top: -5px; left: 80px; transform: scale(0.9) rotateX(12deg) translateZ(15px); }
-        .fl-left   { top: 25px; left: 20px; transform: scale(0.85) rotateY(18deg) rotateZ(-8deg) translateZ(25px); }
-        .fl-right  { top: 25px; left: 140px; transform: scale(0.85) rotateY(-18deg) rotateZ(8deg) translateZ(25px); }
-        .fl-bottom { top: 85px; left: 80px; transform: scale(0.88) rotateX(-12deg) translateZ(30px); }
+        /* تعديل الزوايا (rotateX) لتنام الأزهار بشكل مائل ومسطح مع الباقة المواجهة لك */
+        .fl-center { top: 45px; left: 85px; transform: scale(1.0) rotateX(-15deg) translateZ(40px); } 
+        .fl-top    { top: -2px; left: 85px; transform: scale(0.92) rotateX(-5deg) translateZ(20px); }
+        .fl-left   { top: 25px; left: 22px; transform: scale(0.88) rotateY(15deg) rotateX(-10deg) translateZ(30px); }
+        .fl-right  { top: 25px; left: 148px; transform: scale(0.88) rotateY(-15deg) rotateX(-10deg) translateZ(30px); }
+        .fl-bottom { top: 92px; left: 85px; transform: scale(0.9) rotateX(-25deg) translateZ(35px); }
 
-        /* تفاصيل زهرة عباد الشمس الفخمة المقاسة بدقة */
+        /* تفاصيل زهرة عباد الشمس */
         .flower-center {
             position: absolute;
             top: 23px; left: 23px; width: 38px; height: 38px;
@@ -372,7 +371,6 @@
                 <div class="box-face right"></div>
                 <div class="box-face bottom"></div>
 
-                <!-- كارد التهنئة المنسحب بدقة -->
                 <div class="card" id="mainCard" onclick="bloom3DBouquet()">
                     <div class="card-heart">♥</div>
                     <h2>بيسان</h2>
@@ -381,7 +379,7 @@
                     <div class="hint-touch-btn" id="hintBtn">اضغطي لتأمل باقة الورد 🌊</div>
                 </div>
 
-                <!-- حاوية باقة الورد بعد ضبط وتصحيح الأبعاد بالكامل -->
+                <!-- حاوية باقة الورد الاحترافية بالمنظور العلوي المائل -->
                 <div class="bouquet-3d-container" id="bouquet3D">
                     <div class="wrapping-paper">
                         <div class="paper-cone back-layer"></div>
@@ -458,7 +456,7 @@
 
             if (seaAudio) {
                 seaAudio.volume = 0.45;
-                seaAudio.play().catch(e => console.log("Audio requires interaction"));
+                seaAudio.play().catch(e => console.log("Audio play failed"));
             }
 
             giftBox.classList.add('open');
