@@ -32,21 +32,21 @@
 
         .phone-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 430px;
             height: 100vh;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             overflow: hidden;
         }
 
         .header-title {
             text-align: center;
             border: 1px solid var(--gold);
-            padding: 8px 30px;
+            padding: 8px 35px;
             border-radius: 4px;
             font-size: 1.2rem;
             color: var(--gold);
@@ -58,75 +58,52 @@
         .scene {
             position: relative;
             width: 100%;
-            height: 450px;
+            height: 500px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 5;
         }
 
-        /* باقة الورد الحقيقية الفخمة في الخلفية */
-        .sunflowers-image-bg {
-            position: absolute;
-            bottom: -30px;
-            width: 320px;
-            height: 320px;
-            /* صورة حقيقية عالية الجودة لباقة عباد الشمس الأصفر الفاخر */
-            background-image: url('https://images.unsplash.com/photo-1597848212624-a19eb35e2651?q=80&w=600&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
-            opacity: 0;
-            filter: blur(30px);
-            transition: all 2.8s cubic-bezier(0.075, 0.82, 0.165, 1);
-            z-index: 1;
-            pointer-events: none;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
-        }
-        
-        /* تأثير ظهور الباقة السينمائي المدمج خلف الكارد */
-        .sunflowers-image-bg.show {
-            opacity: 0.45;
-            filter: blur(6px);
-            transform: scale(1.25) translateY(-40px);
-        }
-
+        /* تكبير حجم صندوق الهدايا */
         .gift-box {
             position: relative;
-            width: 200px;
-            height: 180px;
+            width: 250px;
+            height: 220px;
             background-color: var(--box-color);
             border-radius: 8px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 15px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.15);
             border: 2px solid #e0dacb;
             z-index: 4;
-            transition: transform 0.5s ease;
             display: flex;
             justify-content: center;
             align-items: center;
+            transform: translateY(40px);
+            transition: transform 0.8s ease;
         }
 
         .gift-box::before {
             content: '';
             position: absolute;
-            width: 30px;
+            width: 36px;
             height: 100%;
             background: linear-gradient(90deg, var(--dark-gold), var(--gold), var(--dark-gold));
             top: 0;
-            left: calc(50% - 15px);
+            left: calc(50% - 18px);
             z-index: 2;
         }
 
+        /* الغطاء */
         .gift-lid {
             position: absolute;
-            top: -15px;
-            left: -5px;
-            width: 210px;
-            height: 40px;
+            top: -18px;
+            left: -6px;
+            width: 262px;
+            height: 45px;
             background-color: var(--box-color);
             border: 2px solid #e0dacb;
             border-radius: 4px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.4);
             z-index: 5;
             transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
@@ -134,108 +111,143 @@
         .gift-lid::before {
             content: '';
             position: absolute;
-            width: 30px;
+            width: 36px;
             height: 100%;
             background: linear-gradient(90deg, var(--dark-gold), var(--gold), var(--dark-gold));
-            left: calc(50% - 15px);
+            left: calc(50% - 18px);
         }
 
         .ribbon-bow {
             position: absolute;
-            top: -25px;
-            left: calc(50% - 25px);
-            width: 50px;
-            height: 25px;
+            top: -30px;
+            left: calc(50% - 30px);
+            width: 60px;
+            height: 30px;
             background: var(--gold);
-            border-radius: 50px 50px 0 0;
+            border-radius: 60px 60px 0 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .box-plate {
             position: absolute;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, #fffcf6, #ebdcb9);
             border: 2px solid var(--gold);
-            padding: 5px 20px;
+            padding: 6px 25px;
             border-radius: 4px;
             color: #4a3611;
             font-weight: bold;
             text-align: center;
             z-index: 3;
-            font-size: 0.9rem;
+            font-size: 1rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
         }
         
         .box-plate span {
             display: block;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--dark-gold);
             margin-top: 2px;
         }
 
         .gift-box.open .gift-lid {
-            transform: translateY(-150px) rotate(-20deg) scale(0.7);
+            transform: translateY(-160px) rotate(-25deg) scale(0.6);
             opacity: 0;
         }
 
-        /* الكارد المنسق الفخم */
+        /* تكبير وتنسيق كارد المفاجأة المكتوب */
         .card {
             position: absolute;
-            width: 180px;
-            height: 240px;
+            width: 220px;
+            height: 290px;
             background: linear-gradient(135deg, #fffdf9 0%, #f3ede0 100%);
             border: 3px double var(--gold);
             border-radius: 8px;
             color: #3a2e16;
-            padding: 20px 15px;
+            padding: 25px 20px;
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            z-index: 3;
-            transform: translateY(10px) scale(0.7);
+            z-index: 6;
+            transform: translateY(40px) scale(0.5);
             opacity: 0;
-            transition: all 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
             pointer-events: none;
         }
 
+        /* الأنميشن الأول: انبثاق الكارد ليتصدر المشهد */
         .gift-box.open .card {
-            transform: translateY(-100px) scale(1.2);
+            transform: translateY(-110px) scale(1.15);
             opacity: 1;
-            z-index: 6;
+            pointer-events: auto;
+        }
+
+        /* حركة تنحي الكارد جانباً عند طلب الورد */
+        .card.shift-aside {
+            transform: translateY(-110px) translateX(-70px) scale(0.85) rotate(-8deg) !important;
+            z-index: 5;
         }
 
         .card h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--dark-gold);
             font-weight: bold;
         }
 
         .card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            line-height: 1.7;
             font-weight: 600;
             color: #4a3f2c;
-            direction: rtl;
         }
 
         .card-heart {
             color: var(--gold);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
         }
 
+        /* باقة الورد الحقيقية التي تخرج وتصعد من داخل الصندوق */
+        .sunflowers-bouquet {
+            position: absolute;
+            bottom: 30px;
+            width: 200px;
+            height: 200px;
+            /* صورة شفافة لباقة عباد الشمس الحقيقية الفخمة */
+            background-image: url('https://i.ibb.co/b3w66Yw/sunflower-bouquet.png');
+            /* رابط احتياطي عالي الجودة في حال لم يعمل الأول */
+            background-image: url('https://images.unsplash.com/photo-1597848212624-a19eb35e2651?q=80&w=600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 3;
+            opacity: 0;
+            transform: scale(0.2) translateY(50px);
+            transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        /* الأنميشن الثاني: صعود الباقة وتكبيرها من قلب الصندوق */
+        .sunflowers-bouquet.bloom {
+            opacity: 1;
+            transform: scale(1.2) translateY(-140px) translateX(60px);
+            z-index: 7;
+        }
+
+        /* أزرار وإشارات التفاعل اللطيفة */
         .action-btn {
             background: linear-gradient(135deg, var(--gold), var(--dark-gold));
             border: none;
-            padding: 14px 45px;
+            padding: 15px 50px;
             border-radius: 30px;
             color: #fff;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
@@ -243,8 +255,34 @@
             z-index: 10;
         }
 
-        .action-btn:active {
-            transform: scale(0.95);
+        /* إشارة الضغط اللطيفة والنبضية المضافة فوق الكارد */
+        .hint-touch-btn {
+            position: absolute;
+            bottom: -25px;
+            background: #fff;
+            color: var(--dark-gold);
+            border: 1px solid var(--gold);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+            animation: pulseHint 1.8s infinite ease-in-out;
+        }
+
+        .gift-box.open .hint-touch-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes pulseHint {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            50% { transform: scale(1.06); box-shadow: 0 0 12px 6px rgba(212, 175, 55, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
         }
 
         .particle {
@@ -253,40 +291,31 @@
             font-size: 1.5rem;
             pointer-events: none;
             opacity: 0;
-            z-index: 7;
+            z-index: 8;
             text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
             animation: floatUp 2.5s ease-out forwards;
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) scale(0.4) rotate(0deg);
-                opacity: 0;
-            }
-            15% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-250px) scale(1.4) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) scale(0.4) rotate(0deg); opacity: 0; }
+            15% { opacity: 1; }
+            100% { transform: translateY(-260px) scale(1.4) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- موسيقى هادئة جداً ورومانسية تعمل عند الضغط -->
+    <!-- نغمة موسيقى بيانو وتشيلو هادئة جداً، ناعمة وراقية للغاية -->
     <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        <source src="https://assets.mixkit.co/active_storage/sfx/123/123-200.wav" type="audio/wav"> <!-- صوت فتح الهدية كـ تأثير -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mp3">
     </audio>
 
     <div class="phone-container">
         <div class="header-title">هدية خاصة لكِ</div>
 
         <div class="scene">
-            <!-- باقة الورد الحقيقية بالخلفية -->
-            <div class="sunflowers-image-bg" id="sunflowers"></div>
-
+            <!-- صندوق الهدايا المكبّر -->
             <div class="gift-box" id="giftBox">
                 <div class="gift-lid">
                     <div class="ribbon-bow"></div>
@@ -297,72 +326,90 @@
                     <span>بيسان</span>
                 </div>
 
-                <!-- الكارد بالعبارة المحددة بالكامل -->
-                <div class="card">
+                <!-- الكارد المكبّر الذي ينبثق أولاً -->
+                <div class="card" id="mainCard" onclick="bloomFlowers()">
                     <div class="card-heart">♥</div>
                     <h2>بيسان</h2>
                     <p>بتستاهلي كل الورد<br>يا ألطف المخلوقين</p>
                     <div class="card-heart">♥</div>
+                    
+                    <!-- إشارة الضغط اللطيفة والنبضية للمفاجأة الثانية -->
+                    <div class="hint-touch-btn" id="hintBtn">اضغطي لرؤية الورد 🌻</div>
                 </div>
+
+                <!-- باقة الورد الحقيقية المختبئة بالعمق لتخرج لاحقاً -->
+                <div class="sunflowers-bouquet" id="bouquet"></div>
             </div>
         </div>
 
+        <!-- زر التفاعل الأول لفتح الصندوق -->
         <button class="action-btn" id="actionBtn" onclick="openGift()">افتح الهدية 🎁</button>
     </div>
 
     <script>
+        // إعداد مشغل موسيقى بديل ناعم وهادئ جداً
+        const music = document.getElementById('bgMusic');
+        // نغمة هادئة جداً (خلفية بيانو هادئ)
+        music.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"; 
+
         function openGift() {
             const giftBox = document.getElementById('giftBox');
             const actionBtn = document.getElementById('actionBtn');
-            const sunflowers = document.getElementById('sunflowers');
             const boxPlate = document.getElementById('boxPlate');
-            const music = document.getElementById('bgMusic');
 
-            // 1. تشغيل الموسيقى الهادئة فوراً
+            // 1. تشغيل النغمة الناعمة والهادئة جداً
             if (music) {
-                music.volume = 0.35; 
-                music.play().catch(error => console.log("المتصفح منع التشغيل التلقائي:", error));
+                music.volume = 0.25; // خفض الصوت ليكون ناعماً للغاية في الخلفية
+                music.play().catch(err => console.log("المتصفح يطلب تفاعل أولاً"));
             }
 
-            // 2. تفعيل تحريك الصندوق والغطاء واللوحة
+            // 2. فتح غطاء الصندوق وانبثاق الكارد تلقائياً للأعلى أولاً
             giftBox.classList.add('open');
             boxPlate.style.opacity = '0';
 
-            // 3. إطلاق جزيئات البريق والقلوب الذهبية المتطايرة (Particles)
-            createHeartParticles();
+            // 3. إطلاق جزيئات البريق الذهبي والقلوب
+            createMagicParticles();
 
-            // 4. إظهار باقة الورد الفخمة في الخلفية بعمق سينمائي ناعم
-            setTimeout(() => {
-                sunflowers.classList.add('show');
-            }, 500);
-
-            // 5. إخفاء زر التفاعل بسلاسة
+            // 4. إخفاء زر الفتح بسلاسة
             actionBtn.style.opacity = '0';
-            setTimeout(() => {
-                actionBtn.style.display = 'none';
-            }, 500);
+            setTimeout(() => { actionBtn.style.display = 'none'; }, 500);
         }
 
-        function createHeartParticles() {
+        // الخطوة الثانية: خروج باقة الورد الحقيقية وصعودها من الصندوق عند لمس الكارد
+        function bloomFlowers() {
+            const mainCard = document.getElementById('mainCard');
+            const bouquet = document.getElementById('bouquet');
+            const hintBtn = document.getElementById('hintBtn');
+
+            // إخفاء إشارة الضغط اللطيفة
+            hintBtn.style.display = 'none';
+
+            // إزاحة الكارد جانباً بمرونة ليفسح المجال لصعود باقة الورد
+            mainCard.classList.add('shift-aside');
+
+            // خروج باقة الورد من عمق الصندوق وتكبيرها للأعلى بكفاءة فخمة حقيقية
+            setTimeout(() => {
+                bouquet.classList.add('bloom');
+                // زيادة كثافة البريق الساحر مع تفتح الورد
+                createMagicParticles();
+            }, 300);
+        }
+
+        function createMagicParticles() {
             const scene = document.querySelector('.scene');
-            for (let i = 0; i < 22; i++) {
+            for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
-                    
-                    // تنويع الأشكال لتعطي تأثيراً ساحراً
                     particle.innerHTML = i % 2 === 0 ? '♥' : '✨';
                     
-                    particle.style.left = `calc(50% - 10px + ${Math.random() * 80 - 40}px)`;
-                    particle.style.top = '45%';
+                    particle.style.left = `calc(50% - 10px + ${Math.random() * 100 - 50}px)`;
+                    particle.style.top = '50%';
                     particle.style.animationDelay = `${Math.random() * 0.3}s`;
                     
                     scene.appendChild(particle);
-
-                    setTimeout(() => {
-                        particle.remove();
-                    }, 2500);
-                }, i * 75);
+                    setTimeout(() => { particle.remove(); }, 2500);
+                }, i * 70);
             }
         }
     </script>
