@@ -1,500 +1,275 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هدية خاصة لبيسان</title>
-    <style>
-        :root {
-            --gold: #d4af37;
-            --dark-gold: #aa8010;
-            --bg-color: #0c0a07;
-            --box-color: #f5f0e6;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultra Gift</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<style>
+body{
+margin:0;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: radial-gradient(circle at top,#0b0b1a,#000);
+font-family: Arial;
+color:white;
+}
 
-        body {
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at center, #221a12 0%, #050403 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            perspective: 1100px;
-        }
+/* canvas stars */
+canvas{
+position:absolute;
+top:0;
+left:0;
+}
 
-        .phone-container {
-            width: 100%;
-            max-width: 430px;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 20px;
-        }
+/* scene */
+.scene{
+perspective:1400px;
+z-index:2;
+}
 
-        .header-title {
-            border: 1px solid var(--gold);
-            padding: 8px 35px;
-            border-radius: 4px;
-            font-size: 1.1rem;
-            color: var(--gold);
-            background: rgba(12, 10, 7, 0.9);
-            z-index: 100;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-        }
+.card{
+width:300px;
+height:400px;
+transform-style:preserve-3d;
+transition:1.5s;
+cursor:pointer;
+position:relative;
+}
 
-        .scene {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
-            transform: rotateX(14deg) rotateY(-5deg); /* تحسين ميل المشهد العام */
-            z-index: 10;
-        }
+.card.open{
+transform: rotateY(180deg) scale(1.08);
+}
 
-        /* الصندوق ثلاثي الأبعاد */
-        .gift-box-3d {
-            position: relative;
-            width: 200px;
-            height: 180px;
-            transform-style: preserve-3d;
-            transform: translateY(60px);
-            transition: transform 1.5s ease-in-out;
-        }
+/* sides */
+.side{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:22px;
+box-shadow:0 25px 60px rgba(0,0,0,0.6);
+}
 
-        .box-face {
-            position: absolute;
-            background-color: var(--box-color);
-            border: 1px solid #e3dac6;
-        }
+/* front */
+.front{
+background: linear-gradient(135deg,#ffe29f,#ff9671);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
 
-        .box-face.front  { width: 200px; height: 180px; transform: translateZ(100px); }
-        .box-face.back   { width: 200px; height: 180px; transform: rotateY(180deg) translateZ(100px); background: #eae3d2; }
-        .box-face.left   { width: 200px; height: 180px; transform: rotateY(-90deg) translateZ(100px); background: #e3dac6; }
-        .box-face.right  { width: 200px; height: 180px; transform: rotateY(90deg) translateZ(100px); background: #eee7d7; }
-        .box-face.bottom { width: 200px; height: 200px; transform: rotateX(-90deg) translateZ(90px); background: #cdbfa0; box-shadow: 0 35px 50px rgba(0,0,0,0.8); }
+.front h2{
+color:#222;
+}
 
-        .ribbon-v {
-            position: absolute;
-            top: 0; left: calc(50% - 15px); width: 30px; height: 100%;
-            background: linear-gradient(90deg, var(--dark-gold), var(--gold), var(--dark-gold));
-        }
+/* back */
+.back{
+transform:rotateY(180deg);
+background: linear-gradient(135deg,#141e30,#243b55);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+text-align:center;
+}
 
-        /* غطاء الصندوق */
-        .lid-3d {
-            position: absolute;
-            width: 208px;
-            height: 35px;
-            top: -2px; left: -4px;
-            transform-style: preserve-3d;
-            transform-origin: center top -100px;
-            transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 20;
-        }
+.heart{
+font-size:55px;
+animation: float 2s infinite ease-in-out;
+}
 
-        .lid-face { position: absolute; background-color: var(--box-color); border: 1px solid #ebdcb9; }
-        .lid-face.top    { width: 208px; height: 208px; transform: rotateX(90deg) translateZ(104px); }
-        .lid-face.front  { width: 208px; height: 35px; transform: translateZ(104px); }
-        .lid-face.back   { width: 208px; height: 35px; transform: rotateY(180deg) translateZ(104px); }
-        .lid-face.left   { width: 208px; height: 35px; transform: rotateY(-90deg) translateZ(104px); }
-        .lid-face.right  { width: 208px; height: 35px; transform: rotateY(90deg) translateZ(104px); }
-        
-        .lid-ribbon { position: absolute; top: 0; left: calc(50% - 15px); width: 30px; height: 100%; background: var(--gold); }
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+}
 
-        .gift-box-3d.open .lid-3d {
-            transform: rotateX(-115deg) translateY(-55px);
-        }
+.btn{
+margin-top:15px;
+padding:10px 18px;
+border:none;
+border-radius:12px;
+background:#ffd36e;
+cursor:pointer;
+font-weight:bold;
+}
 
-        .box-label {
-            position: absolute;
-            bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: #fff; border: 1.5px solid var(--gold);
-            padding: 5px 20px; border-radius: 4px;
-            color: #4a3611; font-weight: bold; text-align: center; font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: opacity 0.5s ease;
-        }
-        .box-label span { display: block; font-size: 1.1rem; color: var(--dark-gold); }
+/* bouquet */
+.bouquet{
+position:absolute;
+bottom:-200px;
+opacity:0;
+transition:1.2s;
+font-size:80px;
+}
 
-        /* كارد التهنئة الأساسي */
-        .card {
-            position: absolute;
-            width: 210px;
-            height: 280px;
-            background: linear-gradient(135deg, #fffdfa 0%, #f7f2e5 100%);
-            border: 3px double var(--gold);
-            border-radius: 12px;
-            color: #3a2e16;
-            padding: 25px 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            z-index: 60;
-            transform: translateZ(0px) translateY(20px) scale(0.1);
-            opacity: 0;
-            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-        }
+.bouquet.show{
+bottom:30px;
+opacity:1;
+}
 
-        .gift-box-3d.open .card {
-            transform: translateZ(120px) translateY(-140px) scale(1.1);
-            opacity: 1;
-            pointer-events: auto;
-        }
+/* typing text */
+#text{
+margin-top:10px;
+min-height:40px;
+}
 
-        .card.shift-aside {
-            transform: translateZ(40px) translateY(-130px) translateX(-145px) scale(0.85) rotateY(-25deg) rotateZ(-4deg) !important;
-            box-shadow: -15px 25px 45px rgba(0,0,0,0.45);
-        }
-
-        .card h2 { font-size: 2rem; color: var(--dark-gold); font-weight: bold; }
-        .card p { font-size: 1.05rem; line-height: 1.6; font-weight: 600; color: #4a3f2c; }
-        .card-heart { color: var(--gold); font-size: 1.3rem; }
-
-        /* ================= حاوية الباقة مع توجيه المنظور من الأعلى ================= */
-        .bouquet-3d-container {
-            position: absolute;
-            top: 50px; 
-            left: -20px;
-            width: 250px; 
-            height: 210px; 
-            z-index: 45;
-            opacity: 0;
-            transform: translateZ(0px) translateY(0px) scale(0.1);
-            transform-style: preserve-3d;
-            transition: all 2.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-            pointer-events: none;
-        }
-
-        /* تحنيط الباقة لتميل للأمام (rotateX(35deg)) لتعطي منظوراً علوياً مكشوفاً */
-        .bouquet-3d-container.bloom {
-            opacity: 1;
-            transform: translateZ(90px) translateY(-120px) translateX(45px) scale(1.25) rotateX(35deg);
-            animation: bouquetFloat 5s infinite ease-in-out alternate;
-        }
-
-        @keyframes bouquetFloat {
-            0% { transform: translateZ(90px) translateY(-120px) translateX(45px) scale(1.25) rotateX(35deg) rotateY(0deg); }
-            100% { transform: translateZ(90px) translateY(-130px) translateX(48px) scale(1.28) rotateX(38deg) rotateY(6deg); }
-        }
-
-        /* ورق التغليف الفخم */
-        .wrapping-paper {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            z-index: 1;
-        }
-
-        .paper-cone {
-            position: absolute;
-            bottom: 0px; 
-            left: 5%;
-            width: 90%; 
-            height: 85%;
-            background: linear-gradient(145deg, #c3a683, #a2845e);
-            clip-path: polygon(50% 15%, 100% 45%, 80% 100%, 20% 100%, 0% 45%);
-            transform-origin: center bottom;
-            box-shadow: inset 0 -20px 30px rgba(0,0,0,0.3);
-        }
-        .paper-cone.back-layer { transform: translateZ(-15px) scale(1.02); background: #8e7250; }
-        .paper-cone.left-wing { transform: rotateY(-25deg) translateZ(8px) rotateZ(-6deg); opacity: 0.95; }
-        .paper-cone.right-wing { transform: rotateY(25deg) translateZ(8px) rotateZ(6deg); opacity: 0.95; }
-
-        /* شريطة الساتان */
-        .golden-ribbon-tie {
-            position: absolute;
-            bottom: 5px; left: 50%;
-            width: 55px; height: 16px;
-            background: linear-gradient(to right, #b49126, #f1d475, #b49126);
-            transform: translateX(-50%) translateZ(35px);
-            border-radius: 4px;
-            z-index: 25;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        .golden-ribbon-tie::before, .golden-ribbon-tie::after {
-            content: ''; position: absolute; top: -6px;
-            width: 28px; height: 24px;
-            border: 4px solid #e1bd4f; border-radius: 50%;
-        }
-        .golden-ribbon-tie::before { left: -16px; transform: rotate(-25deg); }
-        .golden-ribbon-tie::after { right: -16px; transform: rotate(25deg); }
-
-        /* الحشوة الخضراء والورود البيضاء الصغيرة */
-        .foliage-layer {
-            position: absolute;
-            width: 100%; height: 80%;
-            top: 15px;
-            transform-style: preserve-3d;
-            z-index: 2;
-        }
-        .green-leaf {
-            position: absolute;
-            background: linear-gradient(to top, #143212, #2d5a27);
-            border-radius: 0 70% 0 70%;
-            transform-origin: center center;
-        }
-        .white-baby-breath {
-            position: absolute;
-            width: 5px; height: 5px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 4px #fff, 8px 12px 0 #fff, -10px 5px 0 #fffdf0;
-        }
-
-        /* توزيع الزهور الدائري المستوي والمائل ليناسب الرؤية العلوية كاملاً */
-        .flowers-grid {
-            position: absolute;
-            width: 100%; height: 100%;
-            transform-style: preserve-3d;
-            z-index: 5;
-        }
-
-        .single-flower-3d { position: absolute; transform-style: preserve-3d; }
-        
-        /* تعديل الزوايا (rotateX) لتنام الأزهار بشكل مائل ومسطح مع الباقة المواجهة لك */
-        .fl-center { top: 45px; left: 85px; transform: scale(1.0) rotateX(-15deg) translateZ(40px); } 
-        .fl-top    { top: -2px; left: 85px; transform: scale(0.92) rotateX(-5deg) translateZ(20px); }
-        .fl-left   { top: 25px; left: 22px; transform: scale(0.88) rotateY(15deg) rotateX(-10deg) translateZ(30px); }
-        .fl-right  { top: 25px; left: 148px; transform: scale(0.88) rotateY(-15deg) rotateX(-10deg) translateZ(30px); }
-        .fl-bottom { top: 92px; left: 85px; transform: scale(0.9) rotateX(-25deg) translateZ(35px); }
-
-        /* تفاصيل زهرة عباد الشمس */
-        .flower-center {
-            position: absolute;
-            top: 23px; left: 23px; width: 38px; height: 38px;
-            background: radial-gradient(circle, #1a0d02 0%, #2c1603 50%, #422207 85%, #110801 100%);
-            border-radius: 50%;
-            z-index: 10;
-            transform: translateZ(10px);
-            box-shadow: inset 0 0 8px #000, 0 3px 8px rgba(0,0,0,0.4);
-            border: 2px dashed #5c3a16;
-        }
-
-        .petals-group { position: relative; width: 84px; height: 84px; transform-style: preserve-3d; }
-        
-        .petal {
-            position: absolute;
-            top: 0px; left: 35px; width: 14px; height: 42px;
-            background: linear-gradient(to top, #d97706 0%, #f59e0b 20%, #fbbf24 65%, #fff493 100%);
-            border-radius: 50% 50% 30% 30%;
-            transform-origin: center bottom;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        }
-
-        /* زر التوجيه للضغط */
-        .hint-touch-btn {
-            position: absolute;
-            bottom: -22px;
-            background: #fff; color: var(--dark-gold);
-            border: 1px solid var(--gold);
-            padding: 6px 20px; border-radius: 20px;
-            font-size: 0.85rem; font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            cursor: pointer;
-            opacity: 0; transform: scale(0);
-            transition: all 0.5s ease;
-            animation: pulseHint 1.8s infinite ease-in-out;
-        }
-
-        .gift-box-3d.open .hint-touch-btn { opacity: 1; transform: scale(1); }
-
-        @keyframes pulseHint {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5); }
-            50% { transform: scale(1.05); box-shadow: 0 0 12px 6px rgba(212, 175, 55, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-        }
-
-        .action-btn {
-            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
-            border: none; padding: 15px 55px; border-radius: 30px;
-            color: #fff; font-size: 1.2rem; font-weight: bold;
-            cursor: pointer; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-            z-index: 110;
-        }
-
-        .particle {
-            position: absolute; color: var(--gold); font-size: 1.3rem;
-            pointer-events: none; opacity: 0; z-index: 90;
-            animation: floatUp 2.3s ease-out forwards;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.5); opacity: 0; }
-            15% { opacity: 1; }
-            100% { transform: translateY(-250px) scale(1.3) rotate(180deg); opacity: 0; }
-        }
-    </style>
+/* glow */
+.glow{
+text-shadow:0 0 10px #ffd36e;
+}
+</style>
 </head>
+
 <body>
 
-    <audio id="seaAudio" loop preload="auto">
-        <source src="https://www.soundjay.com/nature/sounds/ocean-wave-1.mp3" type="audio/mp3">
-    </audio>
+<canvas id="stars"></canvas>
 
-    <div class="phone-container">
-        <div class="header-title">هدية خاصة لكِ</div>
+<div class="scene">
+<div class="card" id="card">
 
-        <div class="scene">
-            <div class="gift-box-3d" id="giftBox">
-                <div class="lid-3d">
-                    <div class="lid-face top"><div class="lid-ribbon"></div></div>
-                    <div class="lid-face front"><div class="lid-ribbon"></div></div>
-                    <div class="lid-face back"><div class="lid-ribbon"></div></div>
-                    <div class="lid-face left"></div>
-                    <div class="lid-face right"></div>
-                </div>
+<div class="side front">
+<h2>🎁 اضغط لفتح الهدية</h2>
+</div>
 
-                <div class="box-face front">
-                    <div class="ribbon-v"></div>
-                    <div class="box-label" id="boxLabel">هدية لـ<span>بيسان</span></div>
-                </div>
-                <div class="box-face back"><div class="ribbon-v"></div></div>
-                <div class="box-face left"></div>
-                <div class="box-face right"></div>
-                <div class="box-face bottom"></div>
+<div class="side back">
+<div class="heart">💛</div>
 
-                <div class="card" id="mainCard" onclick="bloom3DBouquet()">
-                    <div class="card-heart">♥</div>
-                    <h2>بيسان</h2>
-                    <p>بتستاهلي كل الورد<br>يا ألطف المخلوقين</p>
-                    <div class="card-heart">♥</div>
-                    <div class="hint-touch-btn" id="hintBtn">اضغطي لتأمل باقة الورد 🌊</div>
-                </div>
+<h3 class="glow">بيسان</h3>
 
-                <!-- حاوية باقة الورد الاحترافية بالمنظور العلوي المائل -->
-                <div class="bouquet-3d-container" id="bouquet3D">
-                    <div class="wrapping-paper">
-                        <div class="paper-cone back-layer"></div>
-                        <div class="paper-cone left-wing"></div>
-                        <div class="paper-cone right-wing"></div>
-                    </div>
+<div id="text"></div>
 
-                    <div class="foliage-layer" id="foliageLayer"></div>
+<button class="btn" onclick="showBouquet(event)">مفاجأة 🌻</button>
 
-                    <div class="flowers-grid">
-                        <div class="single-flower-3d fl-center"><div class="flower-center"></div><div class="petals-group"></div></div>
-                        <div class="single-flower-3d fl-top"><div class="flower-center"></div><div class="petals-group"></div></div>
-                        <div class="single-flower-3d fl-left"><div class="flower-center"></div><div class="petals-group"></div></div>
-                        <div class="single-flower-3d fl-right"><div class="flower-center"></div><div class="petals-group"></div></div>
-                        <div class="single-flower-3d fl-bottom"><div class="flower-center"></div><div class="petals-group"></div></div>
-                    </div>
+<div class="bouquet" id="bouquet">🌻🌻💐🌻🌻</div>
+</div>
 
-                    <div class="golden-ribbon-tie"></div>
-                </div>
+</div>
+</div>
 
-            </div>
-        </div>
+<script>
 
-        <button class="action-btn" id="actionBtn" onclick="openGift()">افتح الهدية 🎁</button>
-    </div>
+/* ====== CARD OPEN ====== */
+const card = document.getElementById("card");
 
-    <script>
-        const foliageLayer = document.getElementById('foliageLayer');
-        for (let i = 0; i < 12; i++) {
-            const leaf = document.createElement('div');
-            leaf.classList.add('green-leaf');
-            const w = 14 + Math.random() * 12;
-            const h = 22 + Math.random() * 15;
-            leaf.style.width = `${w}px`;
-            leaf.style.height = `${h}px`;
-            leaf.style.left = `${15 + Math.random() * 70}%`;
-            leaf.style.top = `${15 + Math.random() * 50}%`;
-            leaf.style.transform = `rotate(${Math.random() * 360}deg) translateZ(${5 + Math.random() * 15}px)`;
-            foliageLayer.appendChild(leaf);
-        }
-        for (let i = 0; i < 12; i++) {
-            const breath = document.createElement('div');
-            breath.classList.add('white-baby-breath');
-            breath.style.left = `${20 + Math.random() * 60}%`;
-            breath.style.top = `${20 + Math.random() * 50}%`;
-            breath.style.transform = `translateZ(12px)`;
-            foliageLayer.appendChild(breath);
-        }
+card.addEventListener("click", ()=>{
+card.classList.add("open");
+startMusic();
+typeText();
+});
 
-        const petalGroups = document.querySelectorAll('.petals-group');
-        const totalPetals = 20;
+/* ====== TYPEWRITER ====== */
+const message = "يا ألطف المخلوقات 💛\nإنتِ تستاهلي كل الورود في هذا العالم 🌻";
+let i = 0;
 
-        petalGroups.forEach(group => {
-            for (let i = 0; i < totalPetals; i++) {
-                const angle = (360 / totalPetals) * i;
-                const petal = document.createElement('div');
-                petal.classList.add('petal');
-                
-                const randomHeight = 39 + (Math.sin(i * 1.7) * 3.5);
-                const tilt = 15 + (i % 2 * 6); 
-                const zOffset = (i % 2 === 0) ? 2 : 5;
-                
-                petal.style.height = `${randomHeight}px`;
-                petal.style.transform = `rotateZ(${angle}deg) rotateX(${tilt}deg) translateZ(${zOffset}px)`;
-                group.appendChild(petal);
-            }
-        });
+function typeText(){
+const el = document.getElementById("text");
+el.innerHTML = "";
 
-        function openGift() {
-            const giftBox = document.getElementById('giftBox');
-            const actionBtn = document.getElementById('actionBtn');
-            const boxLabel = document.getElementById('boxLabel');
-            const seaAudio = document.getElementById('seaAudio');
+i = 0;
+let interval = setInterval(()=>{
+if(i < message.length){
+el.innerHTML += message[i] === "\n" ? "<br>" : message[i];
+i++;
+}else{
+clearInterval(interval);
+}
+},60);
+}
 
-            if (seaAudio) {
-                seaAudio.volume = 0.45;
-                seaAudio.play().catch(e => console.log("Audio play failed"));
-            }
+/* ====== BOUQUET ====== */
+function showBouquet(e){
+e.stopPropagation();
+document.getElementById("bouquet").classList.add("show");
+}
 
-            giftBox.classList.add('open');
-            boxLabel.style.opacity = '0';
-            createSparkles();
+/* ====== ROMANTIC MUSIC (Web Audio) ====== */
+let audioStarted = false;
 
-            actionBtn.style.opacity = '0';
-            setTimeout(() => { actionBtn.style.display = 'none'; }, 500);
-        }
+function startMusic(){
+if(audioStarted) return;
+audioStarted = true;
 
-        function bloom3DBouquet() {
-            const mainCard = document.getElementById('mainCard');
-            const bouquet3D = document.getElementById('bouquet3D');
-            const hintBtn = document.getElementById('hintBtn');
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const ctx = new AudioContext();
 
-            hintBtn.style.display = 'none';
-            mainCard.classList.add('shift-aside'); 
+function note(freq, time){
+const osc = ctx.createOscillator();
+const gain = ctx.createGain();
 
-            setTimeout(() => {
-                bouquet3D.classList.add('bloom');
-                createSparkles();
-            }, 300);
-        }
+osc.type = "sine";
+osc.frequency.value = freq;
 
-        function createSparkles() {
-            const scene = document.querySelector('.scene');
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    particle.innerHTML = '✨';
-                    particle.style.left = `calc(50% + ${Math.random() * 120 - 60}px)`;
-                    particle.style.top = '40%';
-                    scene.appendChild(particle);
-                    setTimeout(() => { particle.remove(); }, 2300);
-                }, i * 60);
-            }
-        }
-    </script>
+gain.gain.setValueAtTime(0.0001, time);
+gain.gain.exponentialRampToValueAtTime(0.08, time+0.5);
+gain.gain.exponentialRampToValueAtTime(0.0001, time+2);
+
+osc.connect(gain);
+gain.connect(ctx.destination);
+
+osc.start(time);
+osc.stop(time+2);
+}
+
+const now = ctx.currentTime;
+
+// simple romantic progression
+note(261.6, now);      // C
+note(329.6, now+1);    // E
+note(392.0, now+2);    // G
+note(523.3, now+3);    // C
+
+note(493.9, now+4);    // B
+note(392.0, now+5);    // G
+note(329.6, now+6);    // E
+}
+
+/* ====== STARS BACKGROUND ====== */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = Array(120).fill().map(()=>({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+d:Math.random()*1
+}));
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+for(let s of stars){
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+
+s.y += s.d;
+if(s.y > canvas.height){
+s.y = 0;
+s.x = Math.random()*canvas.width;
+}
+}
+
+requestAnimationFrame(draw);
+}
+
+draw();
+
+window.addEventListener("resize", ()=>{
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+});
+
+</script>
+
 </body>
 </html>
