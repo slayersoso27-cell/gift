@@ -1,18 +1,92 @@
-<!DOCTYPE html><html lang='ar' dir='rtl'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>هدية</title><style>
-body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;background:linear-gradient(180deg,#fff8dc,#ffe082);overflow:hidden;font-family:Arial}
-#scene{text-align:center}.box{width:160px;height:120px;background:#d32f2f;border-radius:8px;position:relative;margin:auto;cursor:pointer;transition:.8s}
-.lid{position:absolute;width:170px;height:30px;background:#b71c1c;left:-5px;top:-5px;transform-origin:bottom;transition:.8s}
-.ribbon{position:absolute;background:#ffd54f}.v{width:18px;height:120px;left:71px}.h{height:18px;width:160px;top:51px}
-.hidden{display:none}.flowers{font-size:80px;animation:pop 1s}.card{background:#fff;padding:20px;border-radius:18px;box-shadow:0 8px 20px #0003;font-size:28px;margin-top:20px;animation:up 1s}
-.petal{position:absolute;font-size:24px;animation:fall linear infinite}
-@keyframes pop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
-@keyframes up{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
-@keyframes fall{from{transform:translateY(-120vh)}to{transform:translateY(120vh)}}
-</style></head><body>
-<div id='scene'><div class='box' onclick='openGift()'><div class='lid' id='lid'></div><div class='ribbon v'></div><div class='ribbon h'></div></div>
-<div id='gift' class='hidden'><div class='flowers'>🌻🌻💐🌻🌻</div><div class='card'>💛<br>بتستاهلي كل الورود<br>يا ألطف المخلوقين 🌻</div></div></div>
-<script>
-for(let i=0;i<20;i++){let p=document.createElement('div');p.className='petal';p.textContent='🌼';p.style.left=Math.random()*100+'vw';p.style.animationDuration=(4+Math.random()*6)+'s';p.style.animationDelay=(Math.random()*5)+'s';document.body.appendChild(p);}
-function openGift(){lid.style.transform='rotateX(160deg)';setTimeout(()=>gift.classList.remove('hidden'),700);}
-</script></body></html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>هدية بيسان</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffe6f0, #fff9e6);
+      font-family: 'Tahoma', sans-serif;
+    }
+    .gift-box {
+      width: 250px;
+      height: 250px;
+      background: url('https://i.ibb.co/6WfYw2b/gift-box.png') no-repeat center/cover;
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+      animation: shake 1s infinite alternate;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .gift-box::after {
+      content: "بيسان";
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 26px;
+      font-weight: bold;
+      color: #FFD700;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .flowers {
+      display: none;
+      position: absolute;
+      top: -280px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      animation: pop 0.8s ease-out forwards;
+    }
+    .flowers img {
+      width: 130px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .message {
+      margin-top: 15px;
+      font-size: 20px;
+      color: #d6336c;
+      font-weight: bold;
+      background: rgba(255,255,255,0.7);
+      padding: 8px 12px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    @keyframes pop {
+      from { transform: translateX(-50%) scale(0.5); opacity: 0; }
+      to { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+    @keyframes shake {
+      from { transform: rotate(-2deg); }
+      to { transform: rotate(2deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="gift-box" onclick="showFlowers()">
+    <div class="flowers" id="flowers">
+      <img src="https://i.ibb.co/9rZfYw2/roses.png" alt="باقة ورد">
+      <img src="https://i.ibb.co/7JfYw2b/sunflowers.png" alt="باقة عباد شمس">
+      <div class="message">بتستاهلي كل الورود يا ألطف المخلوقين</div>
+    </div>
+  </div>
+
+  <!-- موسيقى ناعمة -->
+  <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <script>
+    function showFlowers() {
+      document.getElementById('flowers').style.display = 'block';
+      document.getElementById('music').play();
+    }
+  </script>
+</body>
+</html>
